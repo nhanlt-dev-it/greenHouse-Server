@@ -15,11 +15,16 @@ const app = express();
 // Middleware
 app.use(express.json());
 
+// Error handling middleware
+app.use(errorMiddleware);
+
 // Routes
 app.use(greenhouseRoutes);
 
-// Error handling middleware
-app.use(errorMiddleware);
+// Root path route
+app.get('/', (req, res) => {
+  res.send('Welcome to the smart greenhouse server system!');
+});
 
 // Start the server
 const PORT = process.env.PORT || 3000;
