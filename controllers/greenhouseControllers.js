@@ -1,27 +1,27 @@
-const { DataGreenhouse1, DataGreenhouse2 } = require('../models/dataGreenhouse');
+const mongoose = require('mongoose');
 const {
-  statusMap,
   rainMap,
-  lightSenseMap,
+  lightSensorMap,
   ledMap,
   fanMap,
   pumpMap,
   doorMap,
   roofMap,
 } = require('../models/statusMappings');
+const { DataGreenhouse1, DataGreenhouse2 } = require('../models/dataGreenhouse');
 
 const moveIdToFront = (data) => {
-  return data.map(item => {
+  return data.map((item) => {
     return {
-      "_id": item._id,
-      ...item.toJSON()
+      _id: item._id,
+      ...item.toJSON(),
     };
   });
 };
 
 const getGreenhouse1Data = async (req, res, next) => {
   try {
-    const data = await DataGreenhouse1.find();
+    const data = await DataGreenhouse1.find().sort({ timestamp: -1 });
     const transformedData = moveIdToFront(data);
 
     res.status(200).json(transformedData);
@@ -42,7 +42,7 @@ const postGreenhouse1Data = async (req, res, next) => {
 
     // Map values from 1 and 2 to corresponding strings
     data.status_rain = rainMap[data.status_rain];
-    data.status_light_sense = lightSenseMap[data.status_light_sense];
+    data.status_light_sensor = lightSensorMap[data.status_light_sensor];
     data.status_led = ledMap[data.status_led];
     data.status_fan = fanMap[data.status_fan];
     data.status_pump = pumpMap[data.status_pump];
@@ -53,7 +53,10 @@ const postGreenhouse1Data = async (req, res, next) => {
     await newData.save();
 
     console.log('Data for Greenhouse 1 saved successfully');
-    res.status(201).send('Data received for Greenhouse 1');
+    const sortedData = await DataGreenhouse1.find().sort({ timestamp: -1 });
+    const transformedSortedData = moveIdToFront(sortedData);
+
+    res.status(201).json(transformedSortedData);
   } catch (error) {
     next(error);
   }
@@ -61,7 +64,7 @@ const postGreenhouse1Data = async (req, res, next) => {
 
 const getGreenhouse2Data = async (req, res, next) => {
   try {
-    const data = await DataGreenhouse2.find();
+    const data = await DataGreenhouse2.find().sort({ timestamp: -1 });
     const transformedData = moveIdToFront(data);
 
     res.status(200).json(transformedData);
@@ -82,7 +85,7 @@ const postGreenhouse2Data = async (req, res, next) => {
 
     // Map values from 1 and 2 to corresponding strings
     data.status_rain = rainMap[data.status_rain];
-    data.status_light_sense = lightSenseMap[data.status_light_sense];
+    data.status_light_sensor = lightSensorMap[data.status_light_sensor];
     data.status_led = ledMap[data.status_led];
     data.status_fan = fanMap[data.status_fan];
     data.status_pump = pumpMap[data.status_pump];
@@ -93,7 +96,10 @@ const postGreenhouse2Data = async (req, res, next) => {
     await newData.save();
 
     console.log('Data for Greenhouse 2 saved successfully');
-    res.status(201).send('Data received for Greenhouse 2');
+    const sortedData = await DataGreenhouse2.find().sort({ timestamp: -1 });
+    const transformedSortedData = moveIdToFront(sortedData);
+
+    res.status(201).json(transformedSortedData);
   } catch (error) {
     next(error);
   }

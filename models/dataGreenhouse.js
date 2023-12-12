@@ -15,7 +15,7 @@ const dataGreenhouseSchema = new mongoose.Schema({
     unit: String, // '%'
   },
   status_rain: String,
-  status_light_sense: String,
+  status_light_sensor: String,
   status_led: String,
   status_fan: String,
   status_pump: String,

@@ -1,14 +1,9 @@
-const statusMap = {
-  1: 'OFF',
-  2: 'ON',
-};
-
 const rainMap = {
   1: 'No Rain',
   2: 'Rain',
 };
 
-const lightSenseMap = {
+const lightSensorMap = {
   1: "It's Dark",
   2: 'Bright Sky',
 };
@@ -39,9 +34,8 @@ const roofMap = {
 };
 
 module.exports = {
-  statusMap,
   rainMap,
-  lightSenseMap,
+  lightSensorMap,
   ledMap,
   fanMap,
   pumpMap,
