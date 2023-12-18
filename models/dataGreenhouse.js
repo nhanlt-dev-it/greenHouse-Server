@@ -1,26 +1,26 @@
 const mongoose = require('mongoose');
 
 const dataGreenhouseSchema = new mongoose.Schema({
-  greenhouseId: String,
+  greenhouseId: { type: String, default: null },
   temperature: {
-    value: Number,
-    unit: String, // '°C'
+    value: { type: Number, default: null },
+    unit: { type: String, default: '°C' },
   },
   humidity: {
-    value: Number,
-    unit: String, // '%'
+    value: { type: Number, default: null },
+    unit: { type: String, default: '%' },
   },
   soil_moisture: {
-    value: Number,
-    unit: String, // '%'
+    value: { type: Number, default: null },
+    unit: { type: String, default: '%' },
   },
-  status_rain: String,
-  status_light_sensor: String,
-  status_led: String,
-  status_fan: String,
-  status_pump: String,
-  status_door: String,
-  roof: String,
+  status_rain: { type: String, default: null },
+  status_light_sensor: { type: String, default: null },
+  status_led: { type: String, default: null },
+  status_fan: { type: String, default: null },
+  status_pump: { type: String, default: null },
+  status_door: { type: String, default: null },
+  roof: { type: String, default: null },
   timestamp: { type: Date, default: Date.now },
 });
 
